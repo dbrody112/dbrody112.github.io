@@ -1,0 +1,194 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-12-15"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Heading</a></li><li><a href="#2">Single Stage</a></li><li><a href="#3">Multi-Stage</a></li><li><a href="#4">Table of Times</a></li><li><a href="#5">Audio</a></li></ul></div><h2 id="1">Heading</h2><pre class="codeinput"><span class="comment">% Dan Brody</span>
+<span class="comment">% DSP Project 1</span>
+<span class="comment">% 10/8/2021</span>
+
+close <span class="string">all</span>;
+clc;
+</pre><h2 id="2">Single Stage</h2><pre class="codeinput">figure;
+[y,time_1] = srconvert([1 zeros(1, 3000)]);
+specs = verify(y);
+</pre><pre class="codeoutput">single-stage : 
+Time : 68.8149seconds
+
+ans =
+
+    'Passband Ripple:       0.024 dB 
+     '
+
+
+ans =
+
+    'Groupdelay Variation:  1.886264e-02   samples 
+     '
+
+
+ans =
+
+    'Stopband Attenuation:  -73.446 dB 
+     '
+
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="3">Multi-Stage</h2><pre class="codeinput">figure;
+[y_multi, time_2] = srconvert_multi([1 zeros(1, 3000)]);
+specs_multi = verify(y_multi);
+</pre><pre class="codeoutput">multi-stage : 
+Time : 0.11757seconds
+
+ans =
+
+    'Passband Ripple:       0.022 dB 
+     '
+
+
+ans =
+
+    'Groupdelay Variation:  9.537407e-05   samples 
+     '
+
+
+ans =
+
+    'Stopband Attenuation:  -97.904 dB 
+     '
+
+</pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <h2 id="4">Table of Times</h2><pre class="codeinput">implementation = [<span class="string">"single-stage"</span> ; <span class="string">"multi-stage"</span>];
+time_spent_seconds = [time_1 ; time_2];
+
+table(implementation, time_spent_seconds)
+
+<span class="comment">%Note : the table shows that multi-stage is considerably faster than</span>
+<span class="comment">%single-stage by a factor of approximately 500. This makes sense since</span>
+<span class="comment">%designing for filters with lower cutoff frequency is much faster.</span>
+</pre><pre class="codeoutput">
+ans =
+
+  2&times;2 table
+
+    implementation    time_spent_seconds
+    ______________    __________________
+
+    "single-stage"          68.815      
+    "multi-stage"          0.11774      
+
+</pre><h2 id="5">Audio</h2><pre class="codeinput">[signal, fs] = audioread(<span class="string">'wagner.wav'</span>);
+[audio_update,~] = srconvert_multi(signal);
+audiowrite(<span class="string">'updated_wagner.wav'</span>, audio_update, 24000)
+
+<span class="comment">%Note : may have to raise volume for updated_wagner.wav</span>
+</pre><pre class="codeoutput">multi-stage : 
+Time : 0.50356seconds
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Heading
+
+% Dan Brody
+% DSP Project 1
+% 10/8/2021
+
+close all;
+clc;
+
+
+
+%% Single Stage
+
+figure;
+[y,time_1] = srconvert([1 zeros(1, 3000)]);
+specs = verify(y);
+
+%% Multi-Stage
+
+figure;
+[y_multi, time_2] = srconvert_multi([1 zeros(1, 3000)]);
+specs_multi = verify(y_multi);
+
+%% Table of Times
+
+implementation = ["single-stage" ; "multi-stage"];
+time_spent_seconds = [time_1 ; time_2];
+
+table(implementation, time_spent_seconds)
+
+%Note : the table shows that multi-stage is considerably faster than
+%single-stage by a factor of approximately 500. This makes sense since
+%designing for filters with lower cutoff frequency is much faster.
+
+
+%% Audio
+
+[signal, fs] = audioread('wagner.wav');
+[audio_update,~] = srconvert_multi(signal);
+audiowrite('updated_wagner.wav', audio_update, 24000)
+
+%Note : may have to raise volume for updated_wagner.wav
+
+##### SOURCE END #####
+--></body></html>
