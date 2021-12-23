@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-12-23"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">1.</a></li><li><a href="#3">T1</a></li><li><a href="#4">T2</a></li><li><a href="#5">2.</a></li><li><a href="#6">3.</a></li><li><a href="#7">s = 75</a></li><li><a href="#8">s = 50</a></li><li><a href="#9">4.</a></li><li><a href="#10">(a) reference img</a></li><li><a href="#11">haar</a></li><li><a href="#12">daubechies?</a></li><li><a href="#13">coiflet</a></li><li><a href="#14">(b) standard basis</a></li><li><a href="#15">haar</a></li><li><a href="#16">daubechies?</a></li><li><a href="#17">coiflet</a></li><li><a href="#18">(c) FFT for Wavelet Shape</a></li><li><a href="#19">haar</a></li><li><a href="#20">db4</a></li><li><a href="#21">coiflet</a></li><li><a href="#22">(d) histograms across decompositions</a></li><li><a href="#23">haar</a></li><li><a href="#24">db4</a></li><li><a href="#25">coiflet</a></li><li><a href="#26">Functions</a></li><li><a href="#27">Threshold Compression</a></li><li><a href="#28">Wavelet Level 2</a></li><li><a href="#29">MSE</a></li><li><a href="#30">Wavelet Histogram for Wavelet Decompositions</a></li><li><a href="#31">Wavelet Shape</a></li><li><a href="#32">Min-Max Normalization</a></li></ul></div><pre class="codeinput">close <span class="string">all</span>;
+clc;
+
+<span class="comment">%Dan Brody</span>
+<span class="comment">%Medical Imaging - Last Project - Sparse MRI</span>
+
+
+<span class="comment">%set to true if publishing</span>
+
+html = true;
+</pre><h2 id="2">1.</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+T1 = niftiread(<span class="string">"sub-CSI1_ses-16_run-01_T1w_defaced.nii"</span>);
+T2 = niftiread(<span class="string">"sub-CSI1_ses-16_T2w.nii.gz"</span>);
+
+selected_slice = 125;
+</pre><h2 id="3">T1</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+figure;
+imagesc((T1(:, :, selected_slice))); colormap <span class="string">gray</span>;
+title(<span class="string">"axial slice "</span> + num2str(selected_slice) + <span class="string">" ,T1-weighted"</span>)
+
+figure;
+imagesc((permute(T1(80,:,:),[2 3 1]))); colormap <span class="string">gray</span>;
+title(<span class="string">"sagittal slice "</span> + num2str(80) + <span class="string">" ,T1-weighted"</span>)
+
+figure;
+imagesc((permute(T1(:,selected_slice,:,:),[1 3 2]))); colormap <span class="string">gray</span>;
+title(<span class="string">"coronal slice "</span> + num2str(selected_slice) + <span class="string">" ,T1-weighted"</span>)
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <img vspace="5" hspace="5" src="main_02.png" alt=""> <img vspace="5" hspace="5" src="main_03.png" alt=""> <h2 id="4">T2</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+figure;
+imagesc(T2(:, :, selected_slice)); colormap <span class="string">gray</span>;
+title(<span class="string">"axial slice "</span> + num2str(selected_slice) + <span class="string">" ,T2-weighted"</span>)
+
+figure;
+imagesc(permute(T2(80,:,:),[2 3 1])); colormap <span class="string">gray</span>;
+title(<span class="string">"sagittal slice "</span> + num2str(80) + <span class="string">" ,T2-weighted"</span>)
+
+figure;
+imagesc(permute(T2(:,selected_slice,:,:),[1 3 2])); colormap <span class="string">gray</span>;
+title(<span class="string">"coronal slice "</span> + num2str(selected_slice) + <span class="string">" ,T2-weighted"</span>)
+</pre><img vspace="5" hspace="5" src="main_04.png" alt=""> <img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <h2 id="5">2.</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+<span class="comment">%testing compression func</span>
+
+g = [1 2 10 3];
+disp(prctile(g,50))
+compressed = threshold_compression(g,50);
+
+<span class="comment">%testing mse func</span>
+
+ground_truth = [1 1 1];
+prediction = [0 0 0];
+mse = mean_squared_error(ground_truth, prediction);
+
+<span class="comment">%testing wavelet func</span>
+
+wname = <span class="string">'haar'</span>;
+reference_img = permute(T1(80,:,:),[2 3 1]);
+wavelet_plot_level_2(reference_img,wname,false);
+</pre><pre class="codeoutput">    2.5000
+
+</pre><img vspace="5" hspace="5" src="main_07.png" alt=""> <h2 id="6">3.</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+figure;
+
+fft2_reference_img = fft2(reference_img);
+imagesc(abs(fftshift(fft2_reference_img))); colormap <span class="string">gray</span>;
+one_d_fft2 = reshape((fft2_reference_img).',1,[]);
+one_d_fft2_mag = abs(fftshift(one_d_fft2));
+
+figure;
+histogram(one_d_fft2_mag)
+title(<span class="string">'histogram of magnitude response of image'</span>)
+</pre><img vspace="5" hspace="5" src="main_08.png" alt=""> <img vspace="5" hspace="5" src="main_09.png" alt=""> <h2 id="7">s = 75</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+compressed_s_75  = threshold_compression(one_d_fft2_mag,75);
+
+reconstructed_img_75 = ifft(compressed_s_75);
+
+flat_refernce_img = reshape(reference_img, [1 256*256]);
+
+mse_75 = mean_squared_error(flat_refernce_img, int16(abs(reconstructed_img_75)));
+
+subplot(1,2,1)
+
+imagesc(reference_img); colormap <span class="string">gray</span>;
+title(<span class="string">'original image'</span>)
+
+subplot(1,2,2);
+
+imagesc(int16(abs(reshape(reconstructed_img_75, [1, 256*256])))); colormap <span class="string">gray</span>;
+title(<span class="string">"reconstructed image w/ mse  : "</span> + num2str(mse_75))
+</pre><img vspace="5" hspace="5" src="main_10.png" alt=""> <h2 id="8">s = 50</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+compressed_s_50  = threshold_compression(one_d_fft2_mag,50);
+
+reconstructed_img_50 = ifft(compressed_s_50);
+
+mse_50 = mean_squared_error(flat_refernce_img , int16(abs(reconstructed_img_50)));
+
+figure;
+
+subplot(1,2,1)
+
+imagesc(reference_img); colormap <span class="string">gray</span>;
+title(<span class="string">'original image'</span>)
+
+subplot(1,2,2);
+
+imagesc(int16(abs(reshape(reconstructed_img_50, [1, 256*256])))); colormap <span class="string">gray</span>;
+title(<span class="string">"reconstructed image w/ mse = "</span> + num2str(mse_50))
+</pre><img vspace="5" hspace="5" src="main_11.png" alt=""> <h2 id="9">4.</h2><pre class="codeinput"><span class="comment">%Using Reference Image</span>
+</pre><h2 id="10">(a) reference img</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+figure;
+</pre><img vspace="5" hspace="5" src="main_12.png" alt=""> <h2 id="11">haar</h2><pre class="codeinput">z = wavelet_plot_level_2(reference_img, <span class="string">'haar'</span>, false);
+
+figure;
+</pre><img vspace="5" hspace="5" src="main_13.png" alt=""> <img vspace="5" hspace="5" src="main_14.png" alt=""> <h2 id="12">daubechies?</h2><pre class="codeinput">z1 = wavelet_plot_level_2(reference_img, <span class="string">'db4'</span>, false);
+
+figure;
+</pre><img vspace="5" hspace="5" src="main_15.png" alt=""> <img vspace="5" hspace="5" src="main_16.png" alt=""> <h2 id="13">coiflet</h2><pre class="codeinput">z2 = wavelet_plot_level_2(reference_img, <span class="string">'db3'</span>, false);
+</pre><img vspace="5" hspace="5" src="main_17.png" alt=""> <h2 id="14">(b) standard basis</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+<span class="comment">%standard basis element</span>
+
+standard = zeros(256,256);
+standard(1,1) = 1;
+
+figure;
+</pre><img vspace="5" hspace="5" src="main_18.png" alt=""> <h2 id="15">haar</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+
+[z,haar_h1, haar_v1, haar_d1, haar_h2, haar_v2, haar_d2, haar_h3, haar_v3, haar_d3] = wavelet_plot_level_2(standard, <span class="string">'haar'</span>, 2);
+
+figure;
+</pre><img vspace="5" hspace="5" src="main_19.png" alt=""> <img vspace="5" hspace="5" src="main_20.png" alt=""> <h2 id="16">daubechies?</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+[z1,db4_h1, db4_v1, db4_d1, db4_h2, db4_v2, db4_d2, db4_h3, db4_v3, db4_d3] = wavelet_plot_level_2(standard, <span class="string">'db4'</span>, 50);
+
+figure;
+</pre><img vspace="5" hspace="5" src="main_21.png" alt=""> <img vspace="5" hspace="5" src="main_22.png" alt=""> <h2 id="17">coiflet</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+[z2,db3_h1, db3_v1, db3_d1, db3_h2, db3_v2, db3_d2, db3_h3, db3_v3, db3_d3] = wavelet_plot_level_2(standard, <span class="string">'db3'</span>, 50);
+</pre><img vspace="5" hspace="5" src="main_23.png" alt=""> <h2 id="18">(c) FFT for Wavelet Shape</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+<span class="comment">%FFT to find Shape</span>
+</pre><h2 id="19">haar</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+find_shape(z,<span class="string">'haar'</span>, 500)
+</pre><img vspace="5" hspace="5" src="main_24.png" alt=""> <h2 id="20">db4</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+find_shape(z1, <span class="string">'db4'</span>, 50)
+</pre><img vspace="5" hspace="5" src="main_25.png" alt=""> <h2 id="21">coiflet</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+find_shape(z2, <span class="string">'db3'</span>, 50)
+</pre><img vspace="5" hspace="5" src="main_26.png" alt=""> <h2 id="22">(d) histograms across decompositions</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+</pre><h2 id="23">haar</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+plot_nine_hist(haar_h1, haar_v1, haar_d1, haar_h2, haar_v2, haar_d2, haar_h3, haar_v3, haar_d3, <span class="string">'haar'</span>);
+</pre><img vspace="5" hspace="5" src="main_27.png" alt=""> <h2 id="24">db4</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+
+plot_nine_hist(db4_h1, db4_v1, db4_d1, db4_h2, db4_v2, db4_d2, db4_h3, db4_v3, db4_d3, <span class="string">'db4'</span>);
+</pre><img vspace="5" hspace="5" src="main_28.png" alt=""> <h2 id="25">coiflet</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+plot_nine_hist(db3_h1, db3_v1, db3_d1, db3_h2, db3_v2, db3_d2, db3_h3, db3_v3, db3_d3, <span class="string">'db3'</span>);
+</pre><img vspace="5" hspace="5" src="main_29.png" alt=""> <h2 id="26">Functions</h2><h2 id="27">Threshold Compression</h2><pre class="codeinput"><span class="keyword">if</span>(html == true)
+    close <span class="string">all</span>;
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> compressed = threshold_compression(x,percentile_threshold)
+
+    <span class="comment">%assume x to be 1d</span>
+    x_mag = abs(x);
+    thresholded_set_indices = find(x_mag &gt; prctile(x,percentile_threshold));
+    compressed = zeros(size(x));
+    <span class="keyword">for</span> i = 1:length(x)
+        <span class="keyword">if</span> ismember(i,thresholded_set_indices)
+            compressed(i) = x(i);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+
+    <span class="keyword">end</span>
+</pre><h2 id="28">Wavelet Level 2</h2><pre class="codeinput"><span class="keyword">function</span> [approximation, H1_3, V1_3, D1_3, H2_3,V2_3,D2_3, H3_3, V3_3, D3_3] = wavelet_plot_level_2(x,wname, level)
+
+    <span class="comment">%produces a wavelet for wavelet wname of data x  which plots up to level 2 with approximation in the upper</span>
+    <span class="comment">%left corner, the level 2 decompositions (horizontal, vertical and</span>
+    <span class="comment">%diagonal) to the right of the approximation and the level 1</span>
+    <span class="comment">%decompositions (horizontal, vertical, and diagonal) to the farther</span>
+    <span class="comment">%right</span>
+
+    <span class="comment">%Outputs of the function include the approximation when using 3 levels as well as the</span>
+    <span class="comment">%level 1 (H1_3, V1_3, D1_3), level 2 (H2_3,V2_3,D2_3) , and level 3 (H3_3, V3_3, D3_3) decompositions incorporated</span>
+
+    <span class="comment">%In addition if level is specified and not false approximation in</span>
+    <span class="comment">%output is of the level specified.</span>
+
+
+    <span class="comment">%computing approximation and decompositions for 2 levels</span>
+
+    [C,S] = wavedec2(x,2,wname);
+    approximation = appcoef2(C,S,wname,2);
+
+
+    [H1,V1,D1] = detcoef2(<span class="string">'all'</span>,C,S,1);
+    [H2,V2,D2] = detcoef2(<span class="string">'all'</span>,C,S,2);
+
+
+    <span class="comment">%computing approximation and decompositions for 3 levels</span>
+
+    [C,S] = wavedec2(x,3,wname);
+    [H1_3,V1_3,D1_3] = detcoef2(<span class="string">'all'</span>,C,S,1);
+    [H2_3,V2_3,D2_3] = detcoef2(<span class="string">'all'</span>,C,S,2);
+    [H3_3,V3_3,D3_3] = detcoef2(<span class="string">'all'</span>,C,S,3);
+
+    <span class="comment">%allowing for change in level of approximation if level specified</span>
+
+    <span class="keyword">if</span>(level)
+        [C,S] = wavedec2(x,level,wname);
+        approximation = appcoef2(C,S,wname,level);
+    <span class="keyword">end</span>
+
+    <span class="comment">%repeating calculation for approximation of level 2 since approximation</span>
+    <span class="comment">%of level 2 and 3 have same name</span>
+
+    [C,S] = wavedec2(x,2,wname);
+    approximation_2 = appcoef2(C,S,wname,2);
+
+    <span class="comment">%plotting wavelet of wavelet name as data x as specified in the</span>
+    <span class="comment">%function description</span>
+
+    subplot(4,4,1);
+
+    imagesc(approximation_2); colormap <span class="string">gray</span>;
+
+    subplot(4,4,2);
+
+    imshow(H2)
+
+    subplot(4,4,5);
+
+    imshow(V2)
+
+    subplot(4,4,6);
+
+    imshow(D2)
+
+    subplot(4,4,[9 10 13 14]);
+
+    imshow(V1)
+
+    subplot(4,4,[11 12 15 16]);
+
+    imshow(D1)
+
+    subplot(4,4,[3 4 7 8]);
+
+    imshow(H1);
+
+    sgtitle(<span class="string">"Two-Level Wavelet Transform for "</span> + wname + <span class="string">" wavelet"</span>)
+
+
+
+<span class="keyword">end</span>
+</pre><h2 id="29">MSE</h2><pre class="codeinput"><span class="keyword">function</span> mse = mean_squared_error(ground_truth, prediction)
+
+    <span class="comment">%computes mse between ground truth and prediction</span>
+
+    mse = mean((prediction-ground_truth).^2);
+<span class="keyword">end</span>
+</pre><h2 id="30">Wavelet Histogram for Wavelet Decompositions</h2><pre class="codeinput"><span class="keyword">function</span> plot_nine_hist(h1, v1, d1, h2, v2, d2, h3, v3, d3, wavelet_name)
+
+    <span class="comment">%plots 1-level (h1, v1,d1) , 2-level (h2, v2, d2) , and 3-level decomposition (h2, v3, d3) for wavelet</span>
+    <span class="comment">%wavelet_name</span>
+
+    figure;
+
+    bins = [-0.0010, 0.0010, 1000000];
+    x_pos = [1 100000];
+
+    <span class="comment">%1-level decomposition</span>
+
+    subplot(3,3,1);
+
+    wavelet_hist(h1,bins, x_pos, <span class="string">"H1"</span>);
+
+    subplot(3,3,2);
+
+    wavelet_hist(v1,bins, [0 0.1], <span class="string">"V1"</span>);
+
+    subplot(3,3,3)
+
+    wavelet_hist(d1,bins, x_pos, <span class="string">"D1"</span>);
+
+    <span class="comment">%2-level decomposition</span>
+
+    subplot(3,3,4);
+
+    wavelet_hist(h2,bins, x_pos, <span class="string">"H2"</span>);
+
+    subplot(3,3,5);
+
+    wavelet_hist(v2,bins, x_pos, <span class="string">"V2"</span>);
+
+    subplot(3,3,6)
+
+    wavelet_hist(d2,bins, x_pos, <span class="string">"D2"</span>);
+
+    <span class="comment">%3-level decomposition</span>
+
+    subplot(3,3,7);
+
+    wavelet_hist(h3,bins, x_pos, <span class="string">"H3"</span>);
+
+    subplot(3,3,8);
+
+    wavelet_hist(v3,bins, x_pos, <span class="string">"V3"</span>);
+
+    subplot(3,3,9);
+
+    wavelet_hist(d3,bins, x_pos, <span class="string">"D3"</span>);
+
+    sgtitle(wavelet_name)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> wavelet_hist(data, bins, x_pos, title_name)
+
+    <span class="comment">%plotting histogram of data by bin with title name as well as number of</span>
+    <span class="comment">%samples per bin above the bin</span>
+
+    histogram(data, bins);
+    show_hist_counts(data,bins, x_pos)
+    title(title_name);
+<span class="keyword">end</span>
+
+
+<span class="keyword">function</span> show_hist_counts(data,bins, x_pos)
+
+    <span class="comment">% adding text for # of samples per bin above the bin in the histogram</span>
+    <span class="comment">% of the data. x_pos's first entry is where on the x-axis the text</span>
+    <span class="comment">% for the first bin is depicted and the second entry where on x-axis</span>
+    <span class="comment">% the text for the second bin is depicted, etc.</span>
+
+    N = histcounts(data,bins);
+    text(x_pos(1), N(1) + 100, num2str(N(1)));
+    text(x_pos(2), 500, num2str(N(2)));
+<span class="keyword">end</span>
+</pre><h2 id="31">Wavelet Shape</h2><pre class="codeinput"><span class="keyword">function</span> find_shape(approximation, wavename, xlimit)
+
+    <span class="comment">% finds shape of wavelet by looking at magnitude response of</span>
+    <span class="comment">% approximation of standard image</span>
+
+    figure;
+
+    <span class="comment">%calculating magnitude response</span>
+
+    x = abs(fft(approximation));
+    z = reshape(x, [1 size(approximation,1)*size(approximation,2)]);
+    plot(z)
+    title(<span class="string">"Wavelet Shape for "</span> + wavename)
+    xlim([0 xlimit])
+<span class="keyword">end</span>
+</pre><h2 id="32">Min-Max Normalization</h2><pre class="codeinput"><span class="keyword">function</span> normalized = min_max_normalization(reference_img)
+
+    <span class="comment">% normalizes reference_img using min-max normalization</span>
+
+    normalized = (reference_img - min(reference_img)) ./ (max(reference_img) - min(reference_img));
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+close all;
+clc;
+
+%Dan Brody
+%Medical Imaging - Last Project - Sparse MRI
+
+
+%set to true if publishing
+
+html = true;
+
+%% 1.
+
+if(html == true)
+    close all;
+end
+
+T1 = niftiread("sub-CSI1_ses-16_run-01_T1w_defaced.nii");
+T2 = niftiread("sub-CSI1_ses-16_T2w.nii.gz");
+
+selected_slice = 125;
+
+%% T1
+
+if(html == true)
+    close all;
+end
+
+figure;
+imagesc((T1(:, :, selected_slice))); colormap gray;
+title("axial slice " + num2str(selected_slice) + " ,T1-weighted")
+
+figure;
+imagesc((permute(T1(80,:,:),[2 3 1]))); colormap gray;
+title("sagittal slice " + num2str(80) + " ,T1-weighted")
+
+figure;
+imagesc((permute(T1(:,selected_slice,:,:),[1 3 2]))); colormap gray;
+title("coronal slice " + num2str(selected_slice) + " ,T1-weighted")
+
+%% T2
+
+if(html == true)
+    close all;
+end
+
+figure;
+imagesc(T2(:, :, selected_slice)); colormap gray;
+title("axial slice " + num2str(selected_slice) + " ,T2-weighted")
+
+figure;
+imagesc(permute(T2(80,:,:),[2 3 1])); colormap gray;
+title("sagittal slice " + num2str(80) + " ,T2-weighted")
+
+figure;
+imagesc(permute(T2(:,selected_slice,:,:),[1 3 2])); colormap gray;
+title("coronal slice " + num2str(selected_slice) + " ,T2-weighted")
+
+%% 2.
+
+if(html == true)
+    close all;
+end
+
+%testing compression func
+
+g = [1 2 10 3];
+disp(prctile(g,50))
+compressed = threshold_compression(g,50);
+
+%testing mse func
+
+ground_truth = [1 1 1];
+prediction = [0 0 0];
+mse = mean_squared_error(ground_truth, prediction);
+
+%testing wavelet func
+
+wname = 'haar';
+reference_img = permute(T1(80,:,:),[2 3 1]);
+wavelet_plot_level_2(reference_img,wname,false);
+
+%% 3.
+
+if(html == true)
+    close all;
+end
+
+figure;
+
+fft2_reference_img = fft2(reference_img);
+imagesc(abs(fftshift(fft2_reference_img))); colormap gray;
+one_d_fft2 = reshape((fft2_reference_img).',1,[]);
+one_d_fft2_mag = abs(fftshift(one_d_fft2));
+
+figure;
+histogram(one_d_fft2_mag)
+title('histogram of magnitude response of image')
+
+%% s = 75
+
+if(html == true)
+    close all;
+end
+
+compressed_s_75  = threshold_compression(one_d_fft2_mag,75);
+
+reconstructed_img_75 = ifft(compressed_s_75);
+
+flat_refernce_img = reshape(reference_img, [1 256*256]);
+
+mse_75 = mean_squared_error(flat_refernce_img, int16(abs(reconstructed_img_75)));
+
+subplot(1,2,1)
+
+imagesc(reference_img); colormap gray;
+title('original image')
+
+subplot(1,2,2);
+
+imagesc(int16(abs(reshape(reconstructed_img_75, [1, 256*256])))); colormap gray;
+title("reconstructed image w/ mse  : " + num2str(mse_75))
+
+
+%% s = 50
+if(html == true)
+    close all;
+end
+
+compressed_s_50  = threshold_compression(one_d_fft2_mag,50);
+
+reconstructed_img_50 = ifft(compressed_s_50);
+
+mse_50 = mean_squared_error(flat_refernce_img , int16(abs(reconstructed_img_50)));
+
+figure;
+
+subplot(1,2,1)
+
+imagesc(reference_img); colormap gray;
+title('original image')
+
+subplot(1,2,2);
+
+imagesc(int16(abs(reshape(reconstructed_img_50, [1, 256*256])))); colormap gray;
+title("reconstructed image w/ mse = " + num2str(mse_50))
+
+
+
+%% 4.
+
+%Using Reference Image
+
+%% (a) reference img
+ 
+if(html == true)
+    close all;
+end
+
+figure;
+
+%% haar
+z = wavelet_plot_level_2(reference_img, 'haar', false);
+
+figure;
+
+%% daubechies?
+z1 = wavelet_plot_level_2(reference_img, 'db4', false);
+
+figure;
+
+%% coiflet
+z2 = wavelet_plot_level_2(reference_img, 'db3', false);
+
+%% (b) standard basis
+
+if(html == true)
+    close all;
+end
+
+%standard basis element
+
+standard = zeros(256,256);
+standard(1,1) = 1;
+
+figure;
+
+%% haar
+
+if(html == true)
+    close all;
+end
+
+
+[z,haar_h1, haar_v1, haar_d1, haar_h2, haar_v2, haar_d2, haar_h3, haar_v3, haar_d3] = wavelet_plot_level_2(standard, 'haar', 2);
+
+figure;
+
+%% daubechies?
+
+if(html == true)
+    close all;
+end
+
+[z1,db4_h1, db4_v1, db4_d1, db4_h2, db4_v2, db4_d2, db4_h3, db4_v3, db4_d3] = wavelet_plot_level_2(standard, 'db4', 50);
+
+figure;
+
+%% coiflet
+
+if(html == true)
+    close all;
+end
+
+[z2,db3_h1, db3_v1, db3_d1, db3_h2, db3_v2, db3_d2, db3_h3, db3_v3, db3_d3] = wavelet_plot_level_2(standard, 'db3', 50);
+
+%% (c) FFT for Wavelet Shape
+
+if(html == true)
+    close all;
+end
+
+%FFT to find Shape
+
+%% haar 
+
+if(html == true)
+    close all;
+end
+
+find_shape(z,'haar', 500)
+
+%% db4
+
+if(html == true)
+    close all;
+end
+
+find_shape(z1, 'db4', 50)
+
+%% coiflet
+
+if(html == true)
+    close all;
+end
+
+find_shape(z2, 'db3', 50)
+
+%% (d) histograms across decompositions
+
+if(html == true)
+    close all;
+end
+
+%% haar
+
+if(html == true)
+    close all;
+end
+
+plot_nine_hist(haar_h1, haar_v1, haar_d1, haar_h2, haar_v2, haar_d2, haar_h3, haar_v3, haar_d3, 'haar');
+
+%% db4
+
+if(html == true)
+    close all;
+end
+
+
+plot_nine_hist(db4_h1, db4_v1, db4_d1, db4_h2, db4_v2, db4_d2, db4_h3, db4_v3, db4_d3, 'db4');
+
+%% coiflet
+
+if(html == true)
+    close all;
+end
+
+plot_nine_hist(db3_h1, db3_v1, db3_d1, db3_h2, db3_v2, db3_d2, db3_h3, db3_v3, db3_d3, 'db3');
+
+%% Functions
+
+%% Threshold Compression
+
+if(html == true)
+    close all;
+end
+
+function compressed = threshold_compression(x,percentile_threshold)
+
+    %assume x to be 1d
+    x_mag = abs(x);
+    thresholded_set_indices = find(x_mag > prctile(x,percentile_threshold));
+    compressed = zeros(size(x));
+    for i = 1:length(x)
+        if ismember(i,thresholded_set_indices)
+            compressed(i) = x(i);
+        end
+    end
+            
+
+    end
+
+%% Wavelet Level 2
+function [approximation, H1_3, V1_3, D1_3, H2_3,V2_3,D2_3, H3_3, V3_3, D3_3] = wavelet_plot_level_2(x,wname, level)
+    
+    %produces a wavelet for wavelet wname of data x  which plots up to level 2 with approximation in the upper
+    %left corner, the level 2 decompositions (horizontal, vertical and
+    %diagonal) to the right of the approximation and the level 1
+    %decompositions (horizontal, vertical, and diagonal) to the farther
+    %right
+    
+    %Outputs of the function include the approximation when using 3 levels as well as the
+    %level 1 (H1_3, V1_3, D1_3), level 2 (H2_3,V2_3,D2_3) , and level 3 (H3_3, V3_3, D3_3) decompositions incorporated
+    
+    %In addition if level is specified and not false approximation in
+    %output is of the level specified.
+    
+    
+    %computing approximation and decompositions for 2 levels 
+
+    [C,S] = wavedec2(x,2,wname);
+    approximation = appcoef2(C,S,wname,2);
+    
+    
+    [H1,V1,D1] = detcoef2('all',C,S,1);
+    [H2,V2,D2] = detcoef2('all',C,S,2);
+    
+    
+    %computing approximation and decompositions for 3 levels
+    
+    [C,S] = wavedec2(x,3,wname);
+    [H1_3,V1_3,D1_3] = detcoef2('all',C,S,1);
+    [H2_3,V2_3,D2_3] = detcoef2('all',C,S,2);
+    [H3_3,V3_3,D3_3] = detcoef2('all',C,S,3);
+   
+    %allowing for change in level of approximation if level specified
+    
+    if(level)
+        [C,S] = wavedec2(x,level,wname);
+        approximation = appcoef2(C,S,wname,level);
+    end
+    
+    %repeating calculation for approximation of level 2 since approximation
+    %of level 2 and 3 have same name
+    
+    [C,S] = wavedec2(x,2,wname);
+    approximation_2 = appcoef2(C,S,wname,2);
+    
+    %plotting wavelet of wavelet name as data x as specified in the
+    %function description
+    
+    subplot(4,4,1);
+    
+    imagesc(approximation_2); colormap gray;
+    
+    subplot(4,4,2);
+    
+    imshow(H2)
+    
+    subplot(4,4,5);
+    
+    imshow(V2)
+    
+    subplot(4,4,6);
+    
+    imshow(D2)
+    
+    subplot(4,4,[9 10 13 14]);
+    
+    imshow(V1)
+    
+    subplot(4,4,[11 12 15 16]);
+    
+    imshow(D1)
+    
+    subplot(4,4,[3 4 7 8]);
+    
+    imshow(H1);
+    
+    sgtitle("Two-Level Wavelet Transform for " + wname + " wavelet")
+    
+    
+    
+end
+
+%% MSE
+
+function mse = mean_squared_error(ground_truth, prediction)
+    
+    %computes mse between ground truth and prediction
+    
+    mse = mean((prediction-ground_truth).^2);
+end
+
+%% Wavelet Histogram for Wavelet Decompositions
+
+
+function plot_nine_hist(h1, v1, d1, h2, v2, d2, h3, v3, d3, wavelet_name)
+
+    %plots 1-level (h1, v1,d1) , 2-level (h2, v2, d2) , and 3-level decomposition (h2, v3, d3) for wavelet
+    %wavelet_name
+   
+    figure;
+    
+    bins = [-0.0010, 0.0010, 1000000];
+    x_pos = [1 100000];
+    
+    %1-level decomposition
+    
+    subplot(3,3,1);
+    
+    wavelet_hist(h1,bins, x_pos, "H1");
+    
+    subplot(3,3,2);
+    
+    wavelet_hist(v1,bins, [0 0.1], "V1");
+    
+    subplot(3,3,3)
+    
+    wavelet_hist(d1,bins, x_pos, "D1");
+    
+    %2-level decomposition
+    
+    subplot(3,3,4);
+    
+    wavelet_hist(h2,bins, x_pos, "H2");
+    
+    subplot(3,3,5);
+    
+    wavelet_hist(v2,bins, x_pos, "V2");
+    
+    subplot(3,3,6)
+    
+    wavelet_hist(d2,bins, x_pos, "D2");
+
+    %3-level decomposition
+    
+    subplot(3,3,7);
+
+    wavelet_hist(h3,bins, x_pos, "H3");
+    
+    subplot(3,3,8);
+    
+    wavelet_hist(v3,bins, x_pos, "V3");
+
+    subplot(3,3,9);
+
+    wavelet_hist(d3,bins, x_pos, "D3");
+
+    sgtitle(wavelet_name)
+end
+
+function wavelet_hist(data, bins, x_pos, title_name)
+    
+    %plotting histogram of data by bin with title name as well as number of
+    %samples per bin above the bin
+    
+    histogram(data, bins);
+    show_hist_counts(data,bins, x_pos)
+    title(title_name);
+end
+    
+
+function show_hist_counts(data,bins, x_pos)
+    
+    % adding text for # of samples per bin above the bin in the histogram
+    % of the data. x_pos's first entry is where on the x-axis the text
+    % for the first bin is depicted and the second entry where on x-axis
+    % the text for the second bin is depicted, etc.
+    
+    N = histcounts(data,bins);
+    text(x_pos(1), N(1) + 100, num2str(N(1)));
+    text(x_pos(2), 500, num2str(N(2)));
+end
+
+%% Wavelet Shape
+
+function find_shape(approximation, wavename, xlimit)
+
+    % finds shape of wavelet by looking at magnitude response of
+    % approximation of standard image
+
+    figure;
+    
+    %calculating magnitude response
+    
+    x = abs(fft(approximation));
+    z = reshape(x, [1 size(approximation,1)*size(approximation,2)]);
+    plot(z)
+    title("Wavelet Shape for " + wavename)
+    xlim([0 xlimit])
+end
+
+%% Min-Max Normalization
+
+function normalized = min_max_normalization(reference_img)
+
+    % normalizes reference_img using min-max normalization
+    
+    normalized = (reference_img - min(reference_img)) ./ (max(reference_img) - min(reference_img));
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
